@@ -76,7 +76,7 @@ Then wait for the user's research query.
 
 5. **Gather metadata for the research document:**
    - Run Bash() tools to generate all relevant metadata
-   - Filename: `thoughts/research/YYYY-MM-DD-XXXX-description.md`
+   - Filename: `docs/claude/research/YYYY-MM-DD-XXXX-description.md`
      - Format: `YYYY-MM-DD-XXXX-description.md` where:
        - YYYY-MM-DD is today's date
        - XXXX is the ticket number (omit if no ticket)
@@ -132,7 +132,7 @@ Then wait for the user's research query.
      [Current patterns, conventions, and design implementations found in the codebase]
 
      ## Related Research
-     [Links to other research documents in thoughts/research/]
+     [Links to other research documents in docs/claude/research/]
 
      ## Open Questions
      [Any areas that need further investigation]
