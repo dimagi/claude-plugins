@@ -1,0 +1,24 @@
+{
+  "name": "dimagi-claude-workflows",
+  "owner": {
+    "name": "Simon Kelly",
+    "email": "skelly@dimagi.com",
+    "url": "https://github.com/dimagi"
+  },
+  "metadata": {
+    "description": "Workflow orchestration and skills",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "research-plan-build",
+      "source": "./plugins/research_plan_build",
+      "description": "Comprehensive workflow tools for codebase research, planning, and implementation with specialized agents for Django/Python projects"
+    },
+    {
+      "name": "dev-utils",
+      "source": "./plugins/dev_utils",
+      "description": "Utility commands and skill for general development"
+    }
+  ]
+}

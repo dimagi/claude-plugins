@@ -1,0 +1,21 @@
+{
+  "name": "codebase-research-workflow",
+  "version": "1.0.0",
+  "description": "Comprehensive workflow tools for codebase research, planning, and implementation with specialized agents for Django/Python projects",
+  "author": {
+    "name": "Simon Kelly",
+    "email": "skelly@dimagi.com",
+    "url": "https://github.com/dimagi"
+  },
+  "homepage": "https://github.com/dimagi/claude-plugins",
+  "repository": "https://github.com/dimagi/claude-plugins",
+  "license": "MIT",
+  "keywords": [
+    "codebase-research",
+    "planning",
+    "implementation",
+    "django",
+    "python",
+    "workflow"
+  ]
+}
