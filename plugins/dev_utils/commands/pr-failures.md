@@ -33,10 +33,7 @@ If the tests **fail locally**, continue to step 2 as normal.
 
 | Pattern | Likely cause |
 |---|---|
-| Tests pass locally but fail in CI | Cache not cleared between tests (Redis waffle flags, rate limiting); `on_commit` callbacks that don't fire in rolled-back test transactions |
 | Flaky (sometimes pass, sometimes fail in CI) | Test ordering dependency, shared mutable state, or time-dependent logic |
-
-**For "passes locally, fails in CI":** Check whether the test fixture saves a model whose cache invalidation relies on `transaction.on_commit()`. In test transactions that are rolled back rather than committed, these callbacks never fire. Call `.flush()` or `.refresh_from_cache()` explicitly in the fixture.
 
 For each failure:
 

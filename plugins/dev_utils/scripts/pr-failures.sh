@@ -50,10 +50,14 @@ fi
 echo ""
 echo "Failures:"
 LOCAL_HEAD=$(git rev-parse HEAD 2>/dev/null || true)
+SEEN_RUNS=""
 while IFS=' ' read -r RUN_ID JOB_ID; do
-    RUN_SHA=$(gh api "repos/$REPO/actions/runs/$RUN_ID" --jq '.head_sha' 2>/dev/null || true)
-    if [[ -n "$RUN_SHA" && -n "$LOCAL_HEAD" && "$RUN_SHA" != "$LOCAL_HEAD" ]]; then
-        echo "⚠️  This failure is from commit ${RUN_SHA:0:7} — your current HEAD is ${LOCAL_HEAD:0:7}. The failure may already be fixed."
+    if [[ ! " $SEEN_RUNS " =~ " $RUN_ID " ]]; then
+        SEEN_RUNS="$SEEN_RUNS $RUN_ID"
+        RUN_SHA=$(gh api "repos/$REPO/actions/runs/$RUN_ID" --jq '.head_sha' 2>/dev/null || true)
+        if [[ -n "$RUN_SHA" && -n "$LOCAL_HEAD" && "$RUN_SHA" != "$LOCAL_HEAD" ]]; then
+            echo "⚠️  This failure is from commit ${RUN_SHA:0:7} — your current HEAD is ${LOCAL_HEAD:0:7}. The failure may already be fixed."
+        fi
     fi
     gh api "repos/$REPO/actions/jobs/$JOB_ID/logs" 2>&1 \
         | sed 's/^[0-9T:.-]*Z //' \
