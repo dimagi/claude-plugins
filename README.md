@@ -26,7 +26,7 @@ Utility commands for general development tasks.
 
 **Add Marketplace**
 ```
-/plugin marketplace add dimagi/claude-plugins
+/plugin marketplace add dimagi/dimagi-claude-workflows
 ```
 
 **Browse Available Plugins**
