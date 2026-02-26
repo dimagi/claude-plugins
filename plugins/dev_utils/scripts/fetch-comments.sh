@@ -52,8 +52,15 @@ THREADS=$(gh api graphql \
          | {thread_id: .id, isResolved, comment_id: .comments.nodes[0].databaseId}]')
 
 # ── Merge into a single JSON object ──────────────────────────────────────────
+# Use --slurpfile instead of --argjson to avoid "Argument list too long" when
+# the PR has many comments (--argjson passes data via argv, which hits ARG_MAX).
+_tmp=$(mktemp -d)
+trap 'rm -rf "$_tmp"' EXIT
+printf '%s' "$INLINE"   > "$_tmp/inline.json"
+printf '%s' "$ISSUE"    > "$_tmp/issue.json"
+printf '%s' "$THREADS"  > "$_tmp/threads.json"
 jq -n \
-  --argjson inline  "$INLINE" \
-  --argjson issue   "$ISSUE" \
-  --argjson threads "$THREADS" \
-  '{inline_comments: $inline, issue_comments: $issue, threads: $threads}'
+  --slurpfile inline   "$_tmp/inline.json" \
+  --slurpfile issue    "$_tmp/issue.json" \
+  --slurpfile threads  "$_tmp/threads.json" \
+  '{inline_comments: $inline[0], issue_comments: $issue[0], threads: $threads[0]}'
