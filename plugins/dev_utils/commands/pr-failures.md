@@ -14,6 +14,19 @@ bash ${CLAUDE_PLUGIN_ROOT}/scripts/pr-failures.sh $ARGUMENTS
 
 If there are no failures, tell the user and stop.
 
+## 1b. Run failing tests locally
+
+Before reading source code, run the failing tests locally using the project's test runner.
+
+Derive the test names from the failure output (e.g., `FAILED tests/foo/test_bar.py::TestClass::test_method`). Check `pyproject.toml`, `package.json`, or `.github/workflows/` to find the correct test runner invocation.
+
+If the tests **pass locally**, do NOT attempt to fix the code directly — the failure is likely environmental. Instead, investigate why the tests behave differently in CI. Common causes:
+- Cache not cleared between tests (Redis, waffle flags, rate limiting)
+- `transaction.on_commit()` callbacks that never fire inside rolled-back test transactions
+- Test ordering dependency or shared mutable state
+
+If the tests **fail locally**, continue to step 2 as normal.
+
 ## 2. Diagnose and fix
 
 For each failure:
